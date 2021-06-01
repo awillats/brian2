@@ -1,20 +1,40 @@
 Release notes
 =============
 
-Brian 2.4.2
-------------
-This is another bugfix release which fixes a number of bugs and updates our
-release infrastructure.
+.. _brian2.5:
+Brian 2.5
+---------
+
+New features
+~~~~~~~~~~~~
+* Generator expressions in different direction (:issue:`1294`)
+* Fixed size random samples (:issue:`1280`)
+* Fair default build flags on several architectures (:issue:`1277`). Thanks to
+  Étienne Mollier for contributing this feature.
 
 Selected improvements and bug fixes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Fix incorrect integration of synaptic equations if they use a ``dt`` from
-  the connected neuron. Thanks to Jan Marker for reporting and fixing the
-  issue (:issue:`1248`).
-* Fix an issue with multiple runs in standalone mode (:issue:`1237`). Thanks
-  to Maurizio De Pittà for reporting the issue.
-* Uncaught error messages will now point to the Discourse forum instead of the
-  deprecated mailing list (:issue:`1242`). Thanks to Felix Kern for contributing
+* Better C++ compiler detection on UNIX systems, e.g. with Anaconda installations
+  (:issue:`1304`). Thanks to Jan Marker for this contribution.
+* Fixed LaTeX output for newer sympy versions (:issue:`1299`). Thanks to Sebastian
+  Schmitt for reporting this issue. The problem and its fix is described in detail
+  in this `blog post <https://briansimulator.org/posts/2021/bug-hunt-episode-1-broken-latex-output-for-equations/>`_.
+* Fixed string representation for units (:issue:`1291`). Recreating a unit from
+  its string representation gave wrong results in some corner cases.
+* Fix an error during the determination of appropriate C++ compiler flags on Windows
+  with Python 3.9 (:issue:`1286`), and fix the detection of a C99-compatible compiler
+  on Windows (:issue:`1257`). Thanks to Kyle Johnsen for reporting the errors
+  and providing both fixes.
+* More robust usage of external constants in C++ standalone code, avoiding clashes
+  when the user defines constants with common names like ``x`` (:issue:`1279`). Thanks
+  to user ``@wxie2013`` for making us aware of this issue.
+* Raise an error if summed variables refer to event-based variables (:issue:`1274`). Thanks
+  to Rohith Varma Buddaraju for fixing this issue.
+* Fix an error for deactivated spike-emitting objects (e.g. `NeuronGroup`, `PoissonGroup`). They
+  continued to emit spikes despite ``active=False`` if they had spiked in the last time step of
+  a previous run (:issue:`1319`). Thanks to ``@Shencong`` for making us aware of the issue.
+* Avoid warnings about deprecated numpy aliases (:issue:`1273`).
+
   this fix.
 
 Infrastructure and documentation improvements
@@ -38,6 +58,11 @@ contributions):
 * Ruben Tikidji-Hamburyan (`@rat-h <https://github.com/rat-h>`_)
 * Jan Marker (`@jangmarker <https://github.com/jangmarker>`_)
 * `@IrisHydi <https://github.com/IrisHydi>`_
+
+Other contributions outside of github (ordered alphabetically, apologies to
+anyone we forgot...):
+
+* ``@Shencong``
 
 Brian 2.4.1
 -----------
